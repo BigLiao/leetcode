@@ -58,17 +58,43 @@
 
 // @lc code=start
 // Definition for singly-linked list.
-class ListNode {
-    val: number
-    next: ListNode | null
-    constructor(val?: number, next?: ListNode | null) {
-        this.val = (val===undefined ? 0 : val)
-        this.next = (next===undefined ? null : next)
-    }
-}
+// class ListNode {
+//     val: number
+//     next: ListNode | null
+//     constructor(val?: number, next?: ListNode | null) {
+//         this.val = (val === undefined ? 0 : val)
+//         this.next = (next === undefined ? null : next)
+//     }
+// }
 
 function addTwoNumbers(l1: ListNode | null, l2: ListNode | null): ListNode | null {
-
+    const head = new ListNode();
+    let p1: ListNode | null = l1;
+    let p2: ListNode | null = l2;
+    let p3: ListNode | null = head;
+    let t = 0; // 进位
+    while (p1 || p2 || t) {
+        let val = 0;
+        if (p1 !== null) {
+            val += p1.val;
+            p1 = p1.next;
+        }
+        if (p2 !== null) {
+            val += p2.val;
+            p2 = p2.next;
+        }
+        if (t > 0) {
+            val += t;
+            t = 0;
+        }
+        if (val >= 10) {
+            val = val - 10;
+            t = 1;
+        }
+        p3.next = new ListNode(val);
+        p3 = p3.next;
+    }
+    return head.next;
 };
 // @lc code=end
 
