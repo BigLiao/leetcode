@@ -74,35 +74,34 @@
  * }
  */
 
-class ListNode {
-  val: number
-  next: ListNode | null
-  constructor(val?: number, next?: ListNode | null) {
-      this.val = (val===undefined ? 0 : val)
-      this.next = (next===undefined ? null : next)
-  }
-}
-class TreeNode {
-    val: number
-    left: TreeNode | null
-    right: TreeNode | null
-    constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {
-        this.val = (val===undefined ? 0 : val)
-        this.left = (left===undefined ? null : left)
-        this.right = (right===undefined ? null : right)
-    }
-}
+// class ListNode {
+//   val: number
+//   next: ListNode | null
+//   constructor(val?: number, next?: ListNode | null) {
+//       this.val = (val===undefined ? 0 : val)
+//       this.next = (next===undefined ? null : next)
+//   }
+// }
+// class TreeNode {
+//     val: number
+//     left: TreeNode | null
+//     right: TreeNode | null
+//     constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {
+//         this.val = (val===undefined ? 0 : val)
+//         this.left = (left===undefined ? null : left)
+//         this.right = (right===undefined ? null : right)
+//     }
+// }
 
-// 暴力递归求解
 // 找到链的中点
 function findMidNode(headNode: ListNode, tailNode: ListNode | null): ListNode {
-  let len = 0;
   let cur: ListNode | null = headNode;
+  let len = 0;
   while (cur && cur !== tailNode) {
     cur = cur.next;
     len++;
   }
-  let midLen = Math.ceil(len / 2);
+  let midLen = Math.floor(len / 2);
   let curIndex = 0;
   cur = headNode;
   while (curIndex < midLen && cur) {
@@ -114,9 +113,10 @@ function findMidNode(headNode: ListNode, tailNode: ListNode | null): ListNode {
 
 function getSubTree(headNode: ListNode | null, tailNode: ListNode | null): TreeNode | null {
   if (headNode === null) return null;
+  if (headNode === tailNode) return null;
   const midNode = findMidNode(headNode, tailNode);
   const leftTree = getSubTree(headNode, midNode);
-  const rightTree = getSubTree(midNode.next!, tailNode);
+  const rightTree = getSubTree(midNode.next, tailNode);
   return new TreeNode(midNode.val, leftTree, rightTree);
 }
 
@@ -124,8 +124,4 @@ function sortedListToBST(head: ListNode | null): TreeNode | null {
   return getSubTree(head, null);
 };
 // @lc code=end
-
-
-
-// sortedListToBST()
 
