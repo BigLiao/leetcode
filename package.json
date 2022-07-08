@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/BigLiao/leetcode/issues"
   },
-  "homepage": "https://github.com/BigLiao/leetcode#readme"
+  "homepage": "https://github.com/BigLiao/leetcode#readme",
+  "devDependencies": {
+    "ts-node": "^10.8.2"
+  }
 }
